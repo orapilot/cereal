@@ -121,7 +121,6 @@ struct InitData {
   }
 }
 
-
 struct CameraOdometry {
   frameId @4 :UInt32;
   timestampEof @5 :UInt64;
@@ -129,6 +128,8 @@ struct CameraOdometry {
   rot @1 :List(Float32); # rad/s in device frame
   transStd @2 :List(Float32); # std m/s in device frame
   rotStd @3 :List(Float32); # std rad/s in device frame
+  wideFromDeviceEuler @6 :List(Float32);
+  wideFromDeviceEulerStd @7 :List(Float32);
 }
 
 struct Sentinel {
@@ -183,6 +184,9 @@ struct ModelDataV2 {
   leadsV3 @18 :List(LeadDataV3);
 
   meta @12 :MetaData;
+
+  # Model perceived motion
+  temporalPose @21 :Pose;
 
   # All SI units and in device frame
   struct XYZTData {
@@ -246,6 +250,31 @@ struct ModelDataV2 {
     brake3MetersPerSecondSquaredProbs @4 :List(Float32);
     brake4MetersPerSecondSquaredProbs @5 :List(Float32);
     brake5MetersPerSecondSquaredProbs @6 :List(Float32);
+  }
+
+  struct Pose {
+    trans @0 :List(Float32); # m/s in device frame
+    rot @1 :List(Float32); # rad/s in device frame
+    transStd @2 :List(Float32); # std m/s in device frame
+    rotStd @3 :List(Float32); # std rad/s in device frame
+  }
+}
+
+struct NavModelData {
+  frameId @0 :UInt32;
+  modelExecutionTime @1 :Float32;
+  dspExecutionTime @2 :Float32;
+  features @3 :List(Float32);
+  # predicted future position
+  position @4 :XYData;
+  desirePrediction @5 :List(Float32);
+
+  # All SI units and in device frame
+  struct XYData {
+    x @0 :List(Float32);
+    y @1 :List(Float32);
+    xStd @2 :List(Float32);
+    yStd @3 :List(Float32);
   }
 }
 
@@ -1285,7 +1314,7 @@ struct Event {
     roadCameraState@1: FrameData;
     accelerometer @2: SensorEventData;
     gyroscope @3: SensorEventData;
-    desire @4: Desire;
+    desireDEPRECATED @4: Desire;
     modelV2 @5: ModelDataV2;
     liveCalibration @6: LiveCalibrationData;
     cameraOdometry @7: CameraOdometry;
@@ -1324,5 +1353,6 @@ struct Event {
     gyroscope2 @42 :SensorEventData;
     accelerometer2 @43 :SensorEventData;
     gpsLocation @44 :GpsLocationData;
+    navModel @45 :NavModelData;
   }
 }
