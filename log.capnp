@@ -1305,6 +1305,18 @@ struct UbloxGnss {
   }
 }
 
+struct ModelRaw {
+  frameId @0 :UInt32;
+  frameIdExtra @1 :UInt32;
+  frameAge @2 :UInt32;
+  frameDropPerc @3 :Float32;
+  timestampEof @4 :UInt64;
+  modelExecutionTime @5 :Float32;
+  valid @6 :Bool;
+
+  rawPredictions @7 :List(Float32);
+}
+
 struct Event {
   logMonoTime @33 :UInt64;  # nanoseconds
   valid @34 :Bool = true;
@@ -1354,5 +1366,6 @@ struct Event {
     accelerometer2 @43 :SensorEventData;
     gpsLocation @44 :GpsLocationData;
     navModel @45 :NavModelData;
+    modelRaw @46 :ModelRaw;
   }
 }

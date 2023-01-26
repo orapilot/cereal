@@ -206,5 +206,8 @@ services:
         expectedFreq: 10
         decimation: 10
     
-    
+    modelRaw:
+        keepLast: true
+        log: false
+        expectedFreq: 20
 
