@@ -200,11 +200,20 @@ services:
         log: true
         expectedFreq: 10
     
+    gpsLocation:
+        keepLast: true
+        log: true
+        expectedFreq: 10
+        decimation: 10
+
     gpsLocationExternal:
         keepLast: true
         log: true
         expectedFreq: 10
         decimation: 10
     
+    testJoystick:
+        keepLast: true
+        log: true
+        expectedFreq: 0    
     
-
