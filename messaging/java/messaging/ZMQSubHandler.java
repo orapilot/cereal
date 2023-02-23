@@ -1,14 +1,18 @@
 package messaging;
 //zmq
-import org.zeromq.ZMQ;
-//java
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.nio.ByteBuffer;
-//logging
+
+import ai.flow.definitions.Definitions;
+import org.capnproto.MessageReader;
+import org.capnproto.Serialize;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.zeromq.ZMQ;
+
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ZMQSubHandler{
     public static final ZMQ.Context context = Factory.getContext();
@@ -18,6 +22,7 @@ public class ZMQSubHandler{
     public Map<String, Integer> pollTopics = new HashMap<>();
     public ZMQ.Poller poller = context.poller();
     public Map<String, ZMQ.Socket> sockets = new HashMap<>();
+    public Map<String, ByteBuffer> cacheBuffers = new HashMap<>();
     public final boolean conflate;
 
     public ZMQSubHandler(boolean conflate){
@@ -67,10 +72,22 @@ public class ZMQSubHandler{
         return socket.recv(); // actual data
     }
 
-    public void recvBuffer(String topic, ByteBuffer buffer){
+    public ByteBuffer recvBuffer(String topic){
         ZMQ.Socket socket = this.sockets.get(topic);
-        socket.recvByteBuffer(buffer, 0);
-        buffer.rewind();
+        ByteBuffer buffer = cacheBuffers.get(topic);
+        return ByteBuffer.wrap(socket.recv());
+    }
+
+    public Definitions.Event.Reader recv(String topic){
+        try {
+            ByteBuffer buffer = recvBuffer(topic);
+            MessageReader messageReader = Serialize.read(buffer);
+            buffer.rewind();
+            return messageReader.getRoot(Definitions.Event.factory);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean updated(String topic){

@@ -348,6 +348,31 @@ struct FrameData {
   }
 }
 
+struct FrameBuffer {
+  image @0 :Data;
+  # address is useful to share buffer within same process.
+  imageAddress @1 :UInt64;
+  encoding @2 :Encoding;
+
+  frameWidth @3 :Int32;
+  frameHeight @4 :Int32;
+
+  stride @5 :Int32;
+  yWidth @6 :Int32;
+  yHeight @7 :Int32;
+  yPixelStride @8 :Int32;
+  uvWidth @9 :Int32;
+  uvHeight @10 :Int32;
+  uvPixelStride @11 :Int32;
+  uOffset @12 :Int32;
+  vOffset @13 :Int32;
+
+  enum Encoding {
+    yuv @0;
+    rgb @1;
+  }
+}
+
 struct Memory {
     timestamp @0 :UInt64;
 
@@ -1367,5 +1392,8 @@ struct Event {
     gpsLocation @44 :GpsLocationData;
     navModel @45 :NavModelData;
     modelRaw @46 :ModelRaw;
+    frameRoadBuffer @47 :FrameBuffer;
+    frameWideBuffer @48 :FrameBuffer;
+    frameDriverBuffer @49 :FrameBuffer;
   }
 }
