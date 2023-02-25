@@ -1,14 +1,14 @@
 package messaging;
 //zmq
-import org.zeromq.ZMQ;
-//java
-import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-//logging
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.zeromq.ZMQ;
+
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ZMQPubHandler{
 

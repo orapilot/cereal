@@ -22,7 +22,6 @@ public class ZMQSubHandler{
     public Map<String, Integer> pollTopics = new HashMap<>();
     public ZMQ.Poller poller = context.poller();
     public Map<String, ZMQ.Socket> sockets = new HashMap<>();
-    public Map<String, ByteBuffer> cacheBuffers = new HashMap<>();
     public final boolean conflate;
 
     public ZMQSubHandler(boolean conflate){
@@ -74,7 +73,6 @@ public class ZMQSubHandler{
 
     public ByteBuffer recvBuffer(String topic){
         ZMQ.Socket socket = this.sockets.get(topic);
-        ByteBuffer buffer = cacheBuffers.get(topic);
         return ByteBuffer.wrap(socket.recv());
     }
 

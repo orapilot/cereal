@@ -1392,8 +1392,8 @@ struct Event {
     gpsLocation @44 :GpsLocationData;
     navModel @45 :NavModelData;
     modelRaw @46 :ModelRaw;
-    frameRoadBuffer @47 :FrameBuffer;
-    frameWideBuffer @48 :FrameBuffer;
-    frameDriverBuffer @49 :FrameBuffer;
+    roadCameraBuffer @47 :FrameBuffer;
+    wideRoadCameraBuffer @48 :FrameBuffer;
+    driverCameraBuffer @49 :FrameBuffer;
   }
 }

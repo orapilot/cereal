@@ -1,14 +1,16 @@
 package messaging;
 //java
-import java.io.*;
-import java.util.Map;
-//yaml
+
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
 public class PortMap{
     public Map<String, Service> services;
-    public static final int STARTING_PORT = 5000;
+    public static final int STARTING_PORT = 5100;
     public static final int RESERVED_PORT = 8022;  // sshd
 
     public static int newPort(int idx){
