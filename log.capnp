@@ -953,21 +953,25 @@ struct ProcLog {
   struct Process {
     pid @0 :Int32;
     name @1 :Text;
-    state @2 :Text;
+    state @2 :UInt8;
+    ppid @3 :Int32;
 
-    nice @3 :Int32;
-    numThreads @4 :Int32;
-    startTime @5 :Float64;
+    cpuUser @4 :Float32;
+    cpuSystem @5 :Float32;
+    cpuChildrenUser @6 :Float32;
+    cpuChildrenSystem @7 :Float32;
+    priority @8 :Int64;
+    nice @9 :Int32;
+    numThreads @10 :Int32;
+    startTime @11 :Float64;
 
-    processor @6 :List(Int32);
+    memVms @12 :UInt64;
+    memRss @13 :UInt64;
 
-    cpuPercent @7 : Float32;
-    cpuTimes @8: Float64;
+    processor @14 :Int32;
 
-    memoryUsage @9: Float32;
-
-    cmdline @10 :List(Text);
-    exe @11 :Text;
+    cmdline @15 :List(Text);
+    exe @16 :Text;
   }
 
   struct CPUTimes {
