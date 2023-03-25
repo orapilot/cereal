@@ -212,12 +212,6 @@ services:
         log: true
         expectedFreq: 10
     
-    gpsLocationExternal:
-        keepLast: true
-        log: true
-        expectedFreq: 10
-        decimation: 10
-    
     modelRaw:
         keepLast: true
         log: false
