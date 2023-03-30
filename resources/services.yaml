@@ -5,11 +5,6 @@ services:
         expectedFreq: 20
         decimation: 40
         
-    desire:
-        keepLast: true
-        log: true
-        expectedFreq: 20
-        
     cameraOdometry:
         keepLast: true
         log: true
