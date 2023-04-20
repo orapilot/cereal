@@ -211,3 +211,8 @@ services:
         keepLast: true
         log: false
         expectedFreq: 20
+    
+    testJoystick:
+        keepLast: true
+        log: true
+        expectedFreq: 0

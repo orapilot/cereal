@@ -1346,6 +1346,12 @@ struct ModelRaw {
   rawPredictions @7 :List(Float32);
 }
 
+struct Joystick {
+  # convenient for debug and live tuning
+  axes @0: List(Float32);
+  buttons @1: List(Bool);
+}
+
 struct Event {
   logMonoTime @33 :UInt64;  # nanoseconds
   valid @34 :Bool = true;
@@ -1399,5 +1405,6 @@ struct Event {
     roadCameraBuffer @47 :FrameBuffer;
     wideRoadCameraBuffer @48 :FrameBuffer;
     driverCameraBuffer @49 :FrameBuffer;
+    testJoystick @50 :Joystick;
   }
 }
