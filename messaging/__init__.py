@@ -16,7 +16,7 @@ assert MessagingError
 NO_TRAVERSAL_LIMIT = 2**64-1
 AVG_FREQ_HISTORY = 100
 SIMULATION = "SIMULATION" in os.environ
-IP_CAN_ADDR = os.environ.get("IP_CAN_ADDR", None)
+DEVICE_ADDR = os.environ.get("DEVICE_ADDR", None)
 
 # sec_since_boot is faster, but allow to run standalone too
 try:
@@ -50,8 +50,8 @@ def pub_sock(endpoint: str) -> PubSocket:
 def sub_sock(endpoint: str, poller: Optional[Poller] = None, addr: str = "127.0.0.1",
              conflate: bool = False, timeout: Optional[int] = None) -> SubSocket:
   sock = SubSocket()
-  if endpoint in ["can", "sendcan"] and IP_CAN_ADDR is not None:
-    addr = IP_CAN_ADDR
+  if DEVICE_ADDR is not None:
+    addr = DEVICE_ADDR
   sock.connect(context, endpoint, addr.encode('utf8'), conflate)
 
   if timeout is not None:
