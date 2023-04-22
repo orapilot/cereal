@@ -16,6 +16,8 @@ std::map<std::string, std::string> ZMQ_PROTOCOLS = {
   { "SHARED_MEMORY", "inproc://" }
 };
 
+char* DEVICE_ADDR = std::getenv("DEVICE_ADDR");
+
 static std::string get_zmq_protocol() {
   std::string default_zmq_protocol = "tcp://";
   char *force_protocol = std::getenv("ZMQ_MESSAGING_PROTOCOL");
@@ -87,6 +89,9 @@ int ZMQSubSocket::connect(Context *context, std::string endpoint, std::string ad
   int reconnect_ivl = 500;
   zmq_setsockopt(sock, ZMQ_RECONNECT_IVL_MAX, &reconnect_ivl, sizeof(reconnect_ivl));
 
+  if (DEVICE_ADDR != NULL){
+    address = std::string(DEVICE_ADDR);
+  }
   full_endpoint = get_zmq_protocol() + address + ":";
   if (check_endpoint){
     full_endpoint += std::to_string(get_port(endpoint));
