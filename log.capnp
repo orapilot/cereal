@@ -438,57 +438,61 @@ struct LateralPlan {
   }
 }
 
-struct ControlsState {
-  startMonoTime @0 :UInt64;
-  canMonoTimes @1 :List(UInt64);
-  longitudinalPlanMonoTime @2 :UInt64;
-  lateralPlanMonoTime @3 :UInt64;
+struct ControlsState @0x97ff69c53601abf1 {
+  startMonoTime @48 :UInt64;
+  longitudinalPlanMonoTime @28 :UInt64;
+  lateralPlanMonoTime @50 :UInt64;
 
-  state @4 :FlowpilotState;
-  enabled @5 :Bool;
-  active @6 :Bool;
+  state @31 :FlowpilotState;
+  enabled @19 :Bool;
+  active @36 :Bool;
 
-  longControlState @7 :Car.CarControl.Actuators.LongControlState;
-  vPid @8 :Float32;
-  vTargetLead @9 :Float32;
-  vCruise @10 :Float32;
-  upAccelCmd @11 :Float32;
-  uiAccelCmd @12 :Float32;
-  ufAccelCmd @13 :Float32;
-  aTarget @14 :Float32;
-  curvature @15 :Float32;  # path curvature from vehicle model
-  desiredCurvature @33 :Float32;  # lag adjusted curvatures used by lateral controllers
-  desiredCurvatureRate @34 :Float32;
-  forceDecel @16 :Bool;
+  experimentalMode @64 :Bool;
+
+  longControlState @30 :Car.CarControl.Actuators.LongControlState;
+  vPid @2 :Float32;
+  vTargetLead @3 :Float32;
+  vCruise @22 :Float32;  # actual set speed
+  vCruiseCluster @63 :Float32;  # set speed to display in the UI
+  upAccelCmd @4 :Float32;
+  uiAccelCmd @5 :Float32;
+  ufAccelCmd @33 :Float32;
+  aTarget @35 :Float32;
+  curvature @37 :Float32;  # path curvature from vehicle model
+  desiredCurvature @61 :Float32;  # lag adjusted curvatures used by lateral controllers
+  desiredCurvatureRate @62 :Float32;
+  forceDecel @51 :Bool;
 
   # UI alerts
-  alertText1 @17 :Text;
-  alertText2 @18 :Text;
-  alertStatus @19 :AlertStatus;
-  alertSize @20 :AlertSize;
-  alertBlinkingRate @21 :Float32;
-  alertType @22 :Text;
-  alertSound @23 :Car.CarControl.HUDControl.AudibleAlert;
-  engageable @24 :Bool;  # can FP be engaged?
+  alertText1 @24 :Text;
+  alertText2 @25 :Text;
+  alertStatus @38 :AlertStatus;
+  alertSize @39 :AlertSize;
+  alertBlinkingRate @42 :Float32;
+  alertType @44 :Text;
+  alertSound @56 :Car.CarControl.HUDControl.AudibleAlert;
+  engageable @41 :Bool;  # can OP be engaged?
 
-  cumLagMs @25 :Float32;
-  canErrorCounter @26 :UInt32;
+  cumLagMs @15 :Float32;
+  canErrorCounter @57 :UInt32;
 
   lateralControlState :union {
-    indiState @27 :LateralINDIState;
-    pidState @28 :LateralPIDState;
-    lqrState @29 :LateralLQRState;
-    angleState @30 :LateralAngleState;
-    debugState @31 :LateralDebugState;
-    torqueState @32 :LateralTorqueState;
+    indiState @52 :LateralINDIState;
+    pidState @53 :LateralPIDState;
+    angleState @58 :LateralAngleState;
+    debugState @59 :LateralDebugState;
+    torqueState @60 :LateralTorqueState;
+    curvatureState @65 :LateralCurvatureState;
+
+    lqrStateDEPRECATED @55 :LateralLQRState;
   }
 
-  enum FlowpilotState {
+  enum FlowpilotState @0xdbe58b96d2d1ac61 {
     disabled @0;
     preEnabled @1;
     enabled @2;
     softDisabling @3;
-    overriding @4;
+    overriding @4;  # superset of overriding with steering or accelerator
   }
 
   enum AlertStatus {
@@ -543,6 +547,8 @@ struct ControlsState {
     f @5 :Float32;
     output @6 :Float32;
     saturated @7 :Bool;
+    actualLateralAccel @9 :Float32;
+    desiredLateralAccel @10 :Float32;
    }
 
   struct LateralLQRState {
@@ -563,12 +569,55 @@ struct ControlsState {
     steeringAngleDesiredDeg @4 :Float32;
   }
 
+  struct LateralCurvatureState {
+    active @0 :Bool;
+    actualCurvature @1 :Float32;
+    desiredCurvature @2 :Float32;
+    error @3 :Float32;
+    p @4 :Float32;
+    i @5 :Float32;
+    f @6 :Float32;
+    output @7 :Float32;
+    saturated @8 :Bool;
+  }
+
   struct LateralDebugState {
     active @0 :Bool;
     steeringAngleDeg @1 :Float32;
     output @2 :Float32;
     saturated @3 :Bool;
   }
+
+  # deprecated
+  vEgoDEPRECATED @0 :Float32;
+  vEgoRawDEPRECATED @32 :Float32;
+  aEgoDEPRECATED @1 :Float32;
+  canMonoTimeDEPRECATED @16 :UInt64;
+  radarStateMonoTimeDEPRECATED @17 :UInt64;
+  mdMonoTimeDEPRECATED @18 :UInt64;
+  yActualDEPRECATED @6 :Float32;
+  yDesDEPRECATED @7 :Float32;
+  upSteerDEPRECATED @8 :Float32;
+  uiSteerDEPRECATED @9 :Float32;
+  ufSteerDEPRECATED @34 :Float32;
+  aTargetMinDEPRECATED @10 :Float32;
+  aTargetMaxDEPRECATED @11 :Float32;
+  rearViewCamDEPRECATED @23 :Bool;
+  driverMonitoringOnDEPRECATED @43 :Bool;
+  hudLeadDEPRECATED @14 :Int32;
+  alertSoundDEPRECATED @45 :Text;
+  angleModelBiasDEPRECATED @27 :Float32;
+  gpsPlannerActiveDEPRECATED @40 :Bool;
+  decelForTurnDEPRECATED @47 :Bool;
+  decelForModelDEPRECATED @54 :Bool;
+  awarenessStatusDEPRECATED @26 :Float32;
+  angleSteersDEPRECATED @13 :Float32;
+  vCurvatureDEPRECATED @46 :Float32;
+  mapValidDEPRECATED @49 :Bool;
+  jerkFactorDEPRECATED @12 :Float32;
+  steerOverrideDEPRECATED @20 :Bool;
+  steeringAngleDesiredDegDEPRECATED @29 :Float32;
+  canMonoTimesDEPRECATED @21 :List(UInt64);
 }
 
 struct RadarState {
@@ -726,9 +775,9 @@ struct PeripheralState {
   voltage @1 :UInt32;
   current @2 :UInt32;
   fanSpeedRpm @3 :UInt16;
-  usbPowerMode @4 :UsbPowerMode;
 
-  enum UsbPowerMode @0xa8883583b32c9877 {
+  usbPowerModeDEPRECATED @4 :UsbPowerModeDEPRECATED;
+  enum UsbPowerModeDEPRECATED @0xa8883583b32c9877 {
     none @0;
     client @1;
     cdp @2;
@@ -738,26 +787,34 @@ struct PeripheralState {
 
 struct PandaState @0xa7649e2575e4591e {
   ignitionLine @2 :Bool;
-  controlsAllowed @3 :Bool;
   gasInterceptorDetected @4 :Bool;
-  canSendErrs @7 :UInt32;
-  canFwdErrs @8 :UInt32;
-  canRxErrs @19 :UInt32;
+  rxBufferOverflow @7 :UInt32;
+  txBufferOverflow @8 :UInt32;
   gmlanSendErrs @9 :UInt32;
   pandaType @10 :PandaType;
   ignitionCan @13 :Bool;
-  safetyModel @14 :Car.CarParams.SafetyModel;
-  safetyParam @27 :UInt16;
-  alternativeExperience @23 :Int16;
   faultStatus @15 :FaultStatus;
   powerSaveEnabled @16 :Bool;
   uptime @17 :UInt32;
   faults @18 :List(FaultType);
   harnessStatus @21 :HarnessStatus;
   heartbeatLost @22 :Bool;
-  blockedCnt @24 :UInt32;
   interruptLoad @25 :Float32;
   fanPower @28 :UInt8;
+
+  # can health
+  canState0 @29 :PandaCanState;
+  canState1 @30 :PandaCanState;
+  canState2 @31 :PandaCanState;
+
+  # safety stuff
+  controlsAllowed @3 :Bool;
+  safetyRxInvalid @19 :UInt32;
+  safetyTxBlocked @24 :UInt32;
+  safetyModel @14 :Car.CarParams.SafetyModel;
+  safetyParam @27 :UInt16;
+  alternativeExperience @23 :Int16;
+  safetyRxChecksInvalid @32 :Bool;
 
   enum FaultStatus {
     none @0;
@@ -789,6 +846,8 @@ struct PandaState @0xa7649e2575e4591e {
     interruptRateClockSource @20;
     interruptRateTick @21;
     interruptRateExti @22;
+    interruptRateSpi @23;
+    interruptRateUart7 @24;
     # Update max fault type in boardd when adding faults
   }
 
@@ -801,6 +860,8 @@ struct PandaState @0xa7649e2575e4591e {
     uno @5;
     dos @6;
     redPanda @7;
+    redPandaV2 @8;
+    tres @9;
   }
 
   enum HarnessStatus {
@@ -814,9 +875,44 @@ struct PandaState @0xa7649e2575e4591e {
   currentDEPRECATED @1 :UInt32;
   hasGpsDEPRECATED @6 :Bool;
   fanSpeedRpmDEPRECATED @11 :UInt16;
-  usbPowerModeDEPRECATED @12 :PeripheralState.UsbPowerMode;
+  usbPowerModeDEPRECATED @12 :PeripheralState.UsbPowerModeDEPRECATED;
   safetyParamDEPRECATED @20 :Int16;
   safetyParam2DEPRECATED @26 :UInt32;
+
+  struct PandaCanState {
+    busOff @0 :Bool;
+    busOffCnt @1 :UInt32;
+    errorWarning @2 :Bool;
+    errorPassive @3 :Bool;
+    lastError @4 :LecErrorCode;
+    lastStoredError @5 :LecErrorCode;
+    lastDataError @6 :LecErrorCode;
+    lastDataStoredError @7 :LecErrorCode;
+    receiveErrorCnt @8 :UInt8;
+    transmitErrorCnt @9 :UInt8;
+    totalErrorCnt @10 :UInt32;
+    totalTxLostCnt @11 :UInt32;
+    totalRxLostCnt @12 :UInt32;
+    totalTxCnt @13 :UInt32;
+    totalRxCnt @14 :UInt32;
+    totalFwdCnt @15 :UInt32;
+    canSpeed @16 :UInt16;
+    canDataSpeed @17 :UInt16;
+    canfdEnabled @18 :Bool;
+    brsEnabled @19 :Bool;
+    canfdNonIso @20 :Bool;
+
+    enum LecErrorCode {
+      noError @0;
+      stuffError @1;
+      formError @2;
+      ackError @3;
+      bit1Error @4;
+      bit0Error @5;
+      crcError @6;
+      noChange @7;
+    }
+  }
 }
 
 struct DriverState {
@@ -1346,6 +1442,14 @@ struct ModelRaw {
   rawPredictions @7 :List(Float32);
 }
 
+struct Clocks {
+  bootTimeNanos @0 :UInt64;
+  monotonicNanos @1 :UInt64;
+  monotonicRawNanos @2 :UInt64;
+  wallTimeNanos @3 :UInt64;
+  modemUptimeMillis @4 :UInt64;
+}
+
 struct Joystick {
   # convenient for debug and live tuning
   axes @0: List(Float32);
@@ -1406,5 +1510,6 @@ struct Event {
     wideRoadCameraBuffer @48 :FrameBuffer;
     driverCameraBuffer @49 :FrameBuffer;
     testJoystick @50 :Joystick;
+    clocks @51 :Clocks;
   }
 }
