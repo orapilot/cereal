@@ -109,12 +109,6 @@ services:
         expectedFreq: 100
         decimation: 100
 
-    gpsLocationExternal:
-        keepLast: true
-        log: true
-        expectedFreq: 10
-        decimation: 10
-
     peripheralState:
         keepLast: true
         log: true
@@ -211,6 +205,7 @@ services:
         keepLast: true
         log: false
         expectedFreq: 20
+
     gpsLocation:
         keepLast: true
         log: true
