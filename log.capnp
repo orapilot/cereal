@@ -1472,6 +1472,22 @@ struct Joystick {
   buttons @1: List(Bool);
 }
 
+struct LiveTorqueParametersData {
+  liveValid @0 :Bool;
+  latAccelFactorRaw @1 :Float32;
+  latAccelOffsetRaw @2 :Float32;
+  frictionCoefficientRaw @3 :Float32;
+  latAccelFactorFiltered @4 :Float32;
+  latAccelOffsetFiltered @5 :Float32;
+  frictionCoefficientFiltered @6 :Float32;
+  totalBucketPoints @7 :Float32;
+  decay @8 :Float32;
+  maxResets @9 :Float32;
+  points @10 :List(List(Float32));
+  version @11 :Int32;
+  useParams @12 :Bool;
+}
+
 struct Event {
   logMonoTime @33 :UInt64;  # nanoseconds
   valid @34 :Bool = true;
@@ -1527,5 +1543,6 @@ struct Event {
     driverCameraBuffer @49 :FrameBuffer;
     testJoystick @50 :Joystick;
     clocks @51 :Clocks;
+    liveTorqueParameters @52 :LiveTorqueParametersData;
   }
 }
