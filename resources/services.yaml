@@ -145,6 +145,12 @@ services:
         expectedFreq: 20
         decimation: 5
     
+    liveTorqueParameters:
+        keepLast: true
+        log: true
+        expectedFreq: 4
+        decimation: 2
+    
     liveLocationKalman:
         keepLast: true
         log: true
