@@ -234,4 +234,10 @@ services:
         log: true
         expectedFreq: 1
         decimation: 1
+
+    gnssMeasurements:
+        keepLast: true
+        log: true
+        expectedFreq: 10
+        decimation: 10
     

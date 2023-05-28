@@ -38,6 +38,9 @@ static int get_port(std::string endpoint) {
     }
   }
 
+  if (port < 0){
+    std::cout << endpoint << " not reistered\n";
+  }
   assert(port >= 0);
   return port;
 }
