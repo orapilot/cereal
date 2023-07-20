@@ -144,23 +144,23 @@ struct Sentinel {
 }
 
 struct LiveCalibrationData {
-  calStatus @11 :Status;
-  calCycle @2 :Int32;
-  calPerc @3 :Int8;
-  validBlocks @9 :Int32;
+  calStatus @0 :Int8;
+  calCycle @1 :Int32;
+  calPerc @2 :Int8;
+  validBlocks @3 :Int32;
 
   # view_frame_from_road_frame
   # ui's is inversed needs new
   extrinsicMatrix @4 :List(Float32);
   # the direction of travel vector in device frame
-  rpyCalib @7 :List(Float32);
-  rpyCalibSpread @8 :List(Float32);
-  wideFromDeviceEuler @10 :List(Float32);
+  rpyCalib @5 :List(Float32);
+  rpyCalibSpread @6 :List(Float32);
+  wideFromDeviceEuler @7 :List(Float32);
 
-  warpMatrixDEPRECATED @0 :List(Float32);
-  calStatusDEPRECATED @1 :Int8;
-  warpMatrix2DEPRECATED @5 :List(Float32);
-  warpMatrixBigDEPRECATED @6 :List(Float32);
+  warpMatrixDEPRECATED @8 :List(Float32);
+  calStatusDEPRECATED @9 :Int8;
+  warpMatrix2DEPRECATED @10 :List(Float32);
+  warpMatrixBigDEPRECATED @11 :List(Float32);
   
   enum Status {
     uncalibrated @0;
