@@ -166,13 +166,13 @@ struct FrameData {
     ox03c10 @2;
   }
 
-  frameLengthDEPRECATED @3 :Int32;
-  globalGainDEPRECATED @5 :Int32;
+  frameLength @3 :Int32;
+  globalGain @5 :Int32;
   androidCaptureResultDEPRECATED @9 :AndroidCaptureResult;
-  lensPosDEPRECATED @11 :Int32;
-  lensSagDEPRECATED @12 :Float32;
-  lensErrDEPRECATED @13 :Float32;
-  lensTruePosDEPRECATED @14 :Float32;
+  lensPos @11 :Int32;
+  lensSag @12 :Float32;
+  lensErr @13 :Float32;
+  lensTruePos @14 :Float32;
   focusValDEPRECATED @16 :List(Int16);
   focusConfDEPRECATED @17 :List(UInt8);
   sharpnessScoreDEPRECATED @18 :List(UInt16);
