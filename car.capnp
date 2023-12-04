@@ -144,6 +144,8 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     startupFuzzyFingerprintDEPRECATED @97;
     noTargetDEPRECATED @25;
     brakeUnavailableDEPRECATED @2;
+
+    followDistanceAdjustmentDisabled @118；
   }
 }
 
