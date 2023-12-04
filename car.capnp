@@ -145,7 +145,7 @@ struct CarEvent @0x9b1657f34caf3ad3 {
     noTargetDEPRECATED @25;
     brakeUnavailableDEPRECATED @2;
 
-    followDistanceAdjustmentDisabled @118；
+    followDistanceAdjustmentDisabled @118;
   }
 }
 
